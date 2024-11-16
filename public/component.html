@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Electronic Art Search</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <header>Electronic Art Search</header>
+        <input
+            id="concept"
+            type="text"
+            placeholder="What is your project concept?"
+        />
+        <input
+            id="interactivity"
+            type="text"
+            placeholder="e.g. touch, movement, sound"
+        />
+        <input
+            id="materiality"
+            type="text"
+            placeholder="e.g. metal, light, liquid, biomaterial"
+        />
+        <button id="search">search</button>
+        <div id="output"></div>
+
+        <script>
+            // find the get-joke button on the page
+            const searchButton = document.querySelector("#search");
+
+            // add an event listener to the button to handle clicks
+            searchButton.addEventListener("click", async () => {
+                // show a loading message
+                document.querySelector("#output").textContent = "searching...";
+
+                // get the topic from the input field
+                const concept = document.querySelector("#concept").value;
+                const interactivity = document.querySelector("#interactivity").value;
+                const materiality = document.querySelector("#materiality").value;
+
+                // send a request to the server to get a joke, wait
+                const response = await fetch(
+                    `http://localhost:8000/api/component?concept=${concept}&interactivity=${interactivity}&materiality=${materiality}`,
+                );
+                const component = await response.text();
+
+                // get the topic from the input field
+                document.querySelector("#output").textContent = component;
+            });
+        </script>
+    </body>
+</html>

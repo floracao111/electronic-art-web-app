@@ -1,0 +1,97 @@
+body {
+    font-family: Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    background-color: rgb(0, 0, 0);
+    background-size: cover;
+    background-position: center;
+    padding-top: 80px; /* Adjust for fixed header */
+}
+
+header {
+    font-family: Impact;
+    position: fixed;
+    top: 2vh;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: yellow;
+    font-size: 5vw;
+    transition: transform 0.3s ease;
+}
+header:hover {
+    transform: scale(1.03);
+}
+header img {
+    width: 5vw;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Chat container styling */
+div {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-bottom: 70px; /* Extra space for input area */
+}
+
+/* Fixed input area at the bottom
+#user-input,
+#send-button {
+    position: fixed;
+    bottom: 20px;
+    max-width: 600px;
+} */
+
+input {
+    /* width: calc(100% - 100px); */
+    width: 50vw;
+    height: 3vh;
+    padding: 1vh;
+    margin: 1vw;
+    border-radius: 5px;
+    border: 2px, solid, yellow;
+    background-color: #ffffff;
+    font-size: 1.8vw;
+    color: rgb(25, 0, 255);
+}
+
+#search {
+    width: 10vw;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: yellow;
+    font-family: Impact;
+    font-size: 2.2vw;
+    cursor: pointer;
+    right: 20px;
+}
+#output {
+    color: rgb(255, 255, 255);
+}
+/* Footer styling */
+footer {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-size: 1vw;
+    font-family: Verdana, sans-serif;
+    transition: transform 0.3s ease;
+}
+footer:hover {
+    transform: scale(1.03);
+}
+
+footer a {
+    color: #000000;
+    text-decoration: none;
+}
