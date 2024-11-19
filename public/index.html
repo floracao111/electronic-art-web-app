@@ -8,23 +8,47 @@
     </head>
     <body>
         <header>Electronic Art Search</header>
-        <input
-            id="concept"
-            type="text"
-            placeholder="What is your project concept?"
-        />
-        <input
-            id="interactivity"
-            type="text"
-            placeholder="e.g. touch, movement, sound"
-        />
-        <input
-            id="materiality"
-            type="text"
-            placeholder="e.g. metal, light, liquid, biomaterial"
-        />
-        <button id="search">search</button>
-        <div id="output"></div>
+        <main>
+            <!-- Left column for input -->
+            <div id="left-column">
+                <label for="question">Hi! Tell me about your idea</label>
+                <input
+                    id="concept"
+                    type="text"
+                    placeholder="What is your project concept?"
+                />
+                <input
+                    id="interactivity"
+                    type="text"
+                    placeholder="Interaction type? e.g. touch, movement, sound"
+                />
+                <input
+                    id="materiality"
+                    type="text"
+                    placeholder="Materiality? e.g. metal, light, liquid, biomaterial"
+                />
+                <input
+                    id="additionalIdeas"
+                    type="text"
+                    placeholder="Additional ideas? Let me know"
+                />
+                <label for="difficulty">Technical complexity</label>
+                <input
+                    id="difficulty"
+                    type="range"
+                    min="1"
+                    max="5"
+                    value="3"
+                    step="1"
+                />
+                <button id="search">Search</button>
+            </div>
+
+            <!-- Right column for output -->
+            <div id="right-column">
+                <div id="output"></div>
+            </div>
+        </main>
 
         <script>
             // find the get-joke button on the page
@@ -32,22 +56,36 @@
 
             // add an event listener to the button to handle clicks
             searchButton.addEventListener("click", async () => {
-                // show a loading message
-                document.querySelector("#output").textContent = "searching...";
-
+                // // show a loading message
+                // document.querySelector("#output").textContent = "searching...";
                 // get the topic from the input field
                 const concept = document.querySelector("#concept").value;
                 const interactivity = document.querySelector("#interactivity").value;
                 const materiality = document.querySelector("#materiality").value;
+                const additionalIdeas =
+                    document.querySelector("#additionalIdeas").value;
+                const difficulty = document.querySelector("#difficulty").value;
+                const outputDiv = document.querySelector("#output");
+                const loadingMessage = document.createElement("p");
+                loadingMessage.textContent = "Searching...";
+                outputDiv.appendChild(loadingMessage);
 
-                // send a request to the server to get a joke, wait
-                const response = await fetch(`/api/component?concept=${concept}&interactivity=${interactivity}&materiality=${materiality}`)
-;
+                // send a request to the server to get, wait
+                const response = await fetch(
+                    `/api/component?concept=${concept}&interactivity=${interactivity}&materiality=${materiality}&difficulty=${difficulty}&additionalIdeas=${additionalIdeas}`,
+                );
                 const component = await response.text();
+                outputDiv.removeChild(loadingMessage);
 
-                // get the topic from the input field
-                document.querySelector("#output").textContent = component;
+                // Add the new response as a paragraph
+                const newOutput = document.createElement("p");
+                newOutput.textContent = component;
+                outputDiv.appendChild(newOutput);
+
+                // Scroll to the bottom of the output container
+                outputDiv.scrollTop = outputDiv.scrollHeight;
             });
         </script>
     </body>
 </html>
+
