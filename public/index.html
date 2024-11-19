@@ -42,7 +42,7 @@
 
                 // send a request to the server to get a joke, wait
                 const response = await fetch(
-                    `/api/component?concept=${concept}&interactivity=${interactivity}&materiality=${materiality}`,
+                    `http://localhost:8000/api/component?concept=${concept}&interactivity=${interactivity}&materiality=${materiality}`,
                 );
                 const component = await response.text();
 
