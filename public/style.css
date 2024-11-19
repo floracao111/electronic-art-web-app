@@ -167,9 +167,9 @@ footer a {
 #output {
     width: 100%;
     padding: 10px;
-    background-color: rgb(240, 240, 240);
+/*     background-color: rgb(240, 240, 240);
     border-radius: 5px;
-    border: 1px solid rgb(200, 200, 200);
+    border: 1px solid rgb(200, 200, 200); */
     font-family: Verdana, sans-serif;
     color: rgb(0, 0, 0);
 }
