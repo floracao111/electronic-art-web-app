@@ -14,10 +14,13 @@ const router = new Router();
 // Create a route to handle requests to /api/joke
 router.get("/api/component", async (ctx) => {
     // Get the topic from the query string `?topic=...`
-    const concept = ctx.request.url.searchParams.get("concept");
-    const interactivity = ctx.request.url.searchParams.get("interactivity");
-    const materiality = ctx.request.url.searchParams.get("materiality");
-    const difficulty = ctx.request.url.searchParams.get("difficulty");
+     const concept = ctx.request.url.searchParams.get("concept") || "";
+    const interactivity = ctx.request.url.searchParams.get("interactivity") ||
+        "";
+    const materiality = ctx.request.url.searchParams.get("materiality") || "";
+    const additionalIdeas =
+        ctx.request.url.searchParams.get("additionalIdeas") || "";
+    const difficulty = ctx.request.url.searchParams.get("difficulty") || "";
 
     // Log the request to the terminal
     console.log(
