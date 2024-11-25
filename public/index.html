@@ -8,40 +8,45 @@
     </head>
     <body>
         <header>Electronic Art Search</header>
+        <p id="welcome-message">Bring your electronic art visions to life</p>
         <main>
             <!-- Left column for input -->
             <div id="left-column">
-                <label for="question">Hi! Tell me about your idea</label>
-                <input
+                <label for="question">Concept</label>
+                <textarea
                     id="concept"
                     type="text"
-                    placeholder="What is your project concept?"
-                />
-                <input
+                    placeholder="Describe your project in 1-2 sentences"
+                ></textarea>
+                <label for="question">Interaction</label>
+                <textarea
                     id="interactivity"
                     type="text"
-                    placeholder="Interaction type? e.g. touch, movement, sound"
-                />
-                <input
+                    placeholder="eg: sound, touch, smell... ways your art interacts with people"
+                ></textarea>
+                <label for="question">Materiality</label>
+                <textarea
                     id="materiality"
                     type="text"
-                    placeholder="Materiality? e.g. metal, light, liquid, biomaterial"
-                />
-                <input
+                    placeholder="eg: metal, fabric, light, biomaterial..."
+                ></textarea>
+                <label for="question">Additional notes</label>
+                <textarea
                     id="additionalIdeas"
                     type="text"
-                    placeholder="Additional ideas? Let me know"
-                />
+                    placeholder="Other unique ideas or inspiration"
+                ></textarea>
+
                 <label for="difficulty">Technical complexity</label>
                 <input
                     id="difficulty"
                     type="range"
                     min="1"
                     max="5"
-                    value="3"
+                    value="1"
                     step="1"
                 />
-                <button id="search">Search</button>
+                <button id="search">Create</button>
             </div>
 
             <!-- Right column for output -->
@@ -51,14 +56,17 @@
         </main>
 
         <script>
-            // find the get-joke button on the page
+            const header = document.querySelector("header");
+            header.addEventListener("click", () => {
+                location.reload(); // Reloads the page
+            });
+
+            let outputCount = 0; // Counter to track outputs
+            // search button
             const searchButton = document.querySelector("#search");
 
             // add an event listener to the button to handle clicks
             searchButton.addEventListener("click", async () => {
-                // // show a loading message
-                // document.querySelector("#output").textContent = "searching...";
-                // get the topic from the input field
                 const concept = document.querySelector("#concept").value;
                 const interactivity = document.querySelector("#interactivity").value;
                 const materiality = document.querySelector("#materiality").value;
@@ -66,6 +74,11 @@
                     document.querySelector("#additionalIdeas").value;
                 const difficulty = document.querySelector("#difficulty").value;
                 const outputDiv = document.querySelector("#output");
+
+                outputCount++;
+
+                // Clear the previous output
+                // outputDiv.innerHTML = "";
                 const loadingMessage = document.createElement("p");
                 loadingMessage.textContent = "Searching...";
                 outputDiv.appendChild(loadingMessage);
@@ -77,13 +90,13 @@
                 const component = await response.text();
                 outputDiv.removeChild(loadingMessage);
 
-                // Add the new response as a paragraph
-                const newOutput = document.createElement("p");
-                newOutput.textContent = component;
+                // Add the new response as HTML
+                const newOutput = document.createElement("div");
+                newOutput.innerHTML = `<h3>IDEA #${outputCount}</h3>${component}`; // Add output count as a heading
                 outputDiv.appendChild(newOutput);
 
-                // Scroll to the bottom of the output container
-                outputDiv.scrollTop = outputDiv.scrollHeight;
+                // Automatically scroll to the new output
+                newOutput.scrollIntoView({ behavior: "smooth", block: "start" });
             });
         </script>
     </body>
