@@ -13,8 +13,7 @@ const router = new Router();
 
 // Create a route to handle requests to /api/joke
 router.get("/api/component", async (ctx) => {
-    // Get the topic from the query string `?topic=...`
-     const concept = ctx.request.url.searchParams.get("concept") || "";
+    const concept = ctx.request.url.searchParams.get("concept") || "";
     const interactivity = ctx.request.url.searchParams.get("interactivity") ||
         "";
     const materiality = ctx.request.url.searchParams.get("materiality") || "";
@@ -32,9 +31,40 @@ router.get("/api/component", async (ctx) => {
         difficulty,
     );
 
-    // Ask GPT to generate a joke about the topic
+    console.log("Request params:", {
+        concept,
+        interactivity,
+        materiality,
+        additionalIdeas,
+        difficulty,
+    });
+
     const component = await promptGPT(
-        `Your are a creative technology teacher. This is your student's concept for a project: ${concept}. These are the ways of interaction for the project: ${interactivity}. These are the materials they want to utilize: ${materiality}. Here are some additional ideas: ${additionalIdeas}. The student's wants the technical difficulty level to be a ${difficulty} out of 5.First, in bullet points, list out the main digital components they can use to create the project. Then, new paragraph, in 2 sentence, describe to your student how they can use the components to create the project. `,
+        `You are a creative technology professor. 
+    This is a form I filled out about my electronic art project idea:
+    - Concept? ${concept}
+    - Interaction? ${interactivity}
+    - Materiality? ${materiality}
+    - Additional notes? ${additionalIdeas}
+    - Technical difficulty? ${difficulty}/5
+
+    check if all the questions in the form has been answered. If there is blank, make a section, recognize there's blank and say don't worry you will brainstorm something for me. No title needed for this section. If there is no blanks, do nothing and go on to the next section. 
+    section 1: <h3>: a simple name for this project. 
+    section 2: Bullet list all needed digital components with specific type. Also software, code library or apis.
+    Section 3: Step by step tutorial. 
+    Section 4: Tips for potential problems. 
+    Please respond in clean HTML format:
+    - Use <h3> for section titles in font 'impact'. 
+    - Use <ul> and <li> for lists.
+    - Use <p> for paragraphs.
+    Start each section with its content, don't start with section number.
+    Avoid any Markdown formatting or unnecessary characters.no additional text, no unsolicited advice or commentary. Be concise and brief.
+    Do not include html and triple backticks in the output.
+`,
+        {
+            temperature: 0.4,
+            max_tokens: 1500,
+        },
     );
 
     // Send the joke back to the client
