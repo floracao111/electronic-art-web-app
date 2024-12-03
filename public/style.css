@@ -7,7 +7,7 @@ body {
     background-color: white;
     background-image: url("computer-circuit-board-makro-fon.png");
     background-size: cover;
-    background-position: center 9vw; /* Pushes the image down */
+    background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     padding-top: 110px;
